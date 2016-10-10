@@ -23,7 +23,7 @@ Using the SQL Database file given to you as the source of data to answer the que
 
   1. Select the names of all users.
 
-  SELECT name FROM users
+  SELECT name FROM users;
 
   2. Select the names of all shows that cost less than £15.
 
@@ -42,7 +42,6 @@ Using the SQL Database file given to you as the source of data to answer the que
   INSERT INTO shows_users(show_id, user_id) VALUES (12, 25)
   --To check it was updated correctly:
   SELECT user_id FROM shows_users WHERE user_id = 25
-  INSERT INTO shows_users(show_id, user_id) VALUES (12, 25)
 
   5. Updates the name of the "Val Gibson" user to be "Valerie Gibson".
 
@@ -67,7 +66,7 @@ Using the SQL Database file given to you as the source of data to answer the que
 
   10. Select the average price of all shows.
 
-  SELECT AVG(price) FROM shows  
+  SELECT AVG(price) FROM shows;  
 
   11. Select the price of the least expensive show.
 
@@ -91,12 +90,12 @@ Using the SQL Database file given to you as the source of data to answer the que
 
   16. Select the names of all users whose names start with the letter "N".
 
-  SELECT name FROM USERS WHERE name LIKE 'N%'
+  SELECT name FROM USERS WHERE name LIKE 'N%';
 
   17. Select the names of users whose names contain "er".
 
   SELECT name FROM USERS WHERE name LIKE '%er%';
-  
+
 
 
 
@@ -107,8 +106,16 @@ Using the SQL Database file given to you as the source of data to answer the que
 
   18. Select the time for the Edinburgh Royal Tattoo.
 
+  SELECT "time" FROM "times" INNER JOIN shows ON shows.id = "times".show_id WHERE shows.name = 'Edinburgh Royal Tattoo';
+  
   19. Select the number of users who want to see "Shitfaced Shakespeare".
+
+  SELECT COUNT(shows_users) FROM shows_users INNER JOIN shows ON shows_users.show_id = shows.id WHERE shows.name = 'Shitfaced Shakespeare';
 
   20. Select all of the user names and the count of shows they're going to see.
 
+  SELECT user_id, COUNT(show_id) FROM shows_users GROUP BY user_id;
+
   21. SELECT all users who are going to a show at 17:15.
+
+  SELECT user_id FROM shows_users INNER JOIN shows ON shows_users.show_id = shows.id INNER JOIN "times" ON shows.id = "times".show_id WHERE "times"."time" = '17.15';
